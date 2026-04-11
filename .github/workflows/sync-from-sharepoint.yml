@@ -19,7 +19,7 @@ jobs:
       - name: Download file from SharePoint
         run: |
           curl -L \
-            "https://spo.bhpbilliton.com/:x:/r/sites/PowerBIJMB/Shared%20Documents/General/Emmanuel_Test/Overlay_Files/Jimblebar_AOZs_PowerBI.csv" \
+            "https://spo.bhpbilliton.com/:x:/r/sites/PowerBIJMB/Shared%20Documents/General/Emmanuel_Test/Overlay_Files/Overlays/Jimblebar_AOZs_PowerBI.csv" \
             -o Jimblebar_AOZs_Lanes_PowerBI.csv
 
       - name: Commit and push if changed
