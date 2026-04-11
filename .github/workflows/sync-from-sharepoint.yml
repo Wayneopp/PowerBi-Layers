@@ -1,0 +1,32 @@
+name: Sync from SharePoint
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # every hour
+  workflow_dispatch:     # manual run button
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo 
+        uses: actions/checkout@v4
+
+      - name: Download file from SharePoint
+        run: |
+          curl -L \
+            "https://spo.bhpbilliton.com/:x:/r/sites/PowerBIJMB/Shared%20Documents/General/Emmanuel_Test/Overlay_Files/Jimblebar_AOZs_PowerBI.csv" \
+            -o Jimblebar_AOZs_Lanes_PowerBI.csv
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "sharepoint-sync"
+          git config user.email "sharepoint-sync@users.noreply.github.com"
+
+          git add Jimblebar_AOZs_Lanes_PowerBI.csv
+          git commit -m "Sync Jimblebar PowerBI file from SharePoint" || echo "No changes"
+          git push
